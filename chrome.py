@@ -7,14 +7,14 @@ from selenium.webdriver.chrome.options import Options
 from webdriver_manager.chrome import ChromeDriverManager
 import warnings
 from notion import Colors, log
+from platformconfig import get_chrome_profile_path
 
 # Suppress unnecessary warnings
 warnings.filterwarnings('ignore', category=DeprecationWarning)
 logging.getLogger('WDM').setLevel(logging.CRITICAL)
 
 # Configuration
-DESKTOP_PATH = os.path.expanduser("~/Desktop")
-PROFILE_DIR = os.path.join(DESKTOP_PATH, "Chrome Profile 1")
+PROFILE_DIR = get_chrome_profile_path()
 PLAYHT_URL = "https://app.play.ht/studio/file/EvQQeB7ebXYukIkPClh2?voice=s3://voice-cloning-zero-shot/541946ca-d3c9-49c7-975b-09a4e42a991f/original/manifest.json"
 
 def setup_chrome():
