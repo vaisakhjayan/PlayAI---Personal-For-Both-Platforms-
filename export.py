@@ -10,12 +10,13 @@ from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler
 from queue import Queue, Empty
 import re
+from platformconfig import get_celebrity_vo_path
 
 # Create a logger specific to this module
 logger = logging.getLogger(__name__)
 
 # Configurable paths and delays
-CELEBRITY_VO_PATH = "E:\\Celebrity Voice Overs"
+CELEBRITY_VO_PATH = get_celebrity_vo_path()
 CONTENT_JSON_PATH = "JSON Files/content.json"
 DELAY_BEFORE_EXPORT = 180  # Delay before clicking Export
 EXPORT_TIMEOUT = 6000  # Maximum time to wait for export file
