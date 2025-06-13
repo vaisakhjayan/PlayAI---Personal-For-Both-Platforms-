@@ -8,10 +8,15 @@ from export import export_audio
 import os
 import sys
 sys.stdout.reconfigure(encoding='utf-8')
-import ctypes
-ctypes.windll.kernel32.SetConsoleTitleW("PlayAI - PlayAI API")
+from platformconfig import get_platform
 
-
+# Set console title based on platform
+if get_platform() == 'Windows':
+    import ctypes
+    ctypes.windll.kernel32.SetConsoleTitleW("PlayAI - PlayAI API")
+elif get_platform() == 'macOS':
+    import subprocess
+    subprocess.run(['echo', '-n', '\033]0;PlayAI - PlayAI API\007'])
 
 def main():
     try:
