@@ -1,6 +1,7 @@
 import os
 import time
 import logging
+import psutil
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.options import Options
@@ -17,9 +18,29 @@ logging.getLogger('WDM').setLevel(logging.CRITICAL)
 PROFILE_DIR = get_chrome_profile_path()
 PLAYHT_URL = "https://app.play.ht/studio/file/EvQQeB7ebXYukIkPClh2?voice=s3://voice-cloning-zero-shot/541946ca-d3c9-49c7-975b-09a4e42a991f/original/manifest.json"
 
+def kill_chrome_instances():
+    """Kill any Chrome instances that are using our profile directory."""
+    try:
+        for proc in psutil.process_iter(['pid', 'name', 'cmdline']):
+            try:
+                # Check if it's a Chrome process
+                if proc.info['name'] and 'chrome' in proc.info['name'].lower():
+                    cmdline = proc.info['cmdline']
+                    if cmdline and any(PROFILE_DIR in arg for arg in cmdline):
+                        log(f"Killing Chrome process {proc.info['pid']} using our profile", "info")
+                        proc.kill()
+            except (psutil.NoSuchProcess, psutil.AccessDenied, psutil.ZombieProcess):
+                continue
+        time.sleep(2)  # Give processes time to close
+    except Exception as e:
+        log(f"Error killing Chrome instances: {str(e)}", "error")
+
 def setup_chrome():
     """Setup Chrome with specific profile and configuration."""
     try:
+        # Kill any existing Chrome instances using our profile
+        kill_chrome_instances()
+        
         # Create Chrome options
         chrome_options = Options()
         
