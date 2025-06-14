@@ -6,6 +6,7 @@ from contentpaster import start_content_pasting
 from generationlogic import verify_and_generate
 from export import export_audio
 import os
+#wassup nigga for personal playai
 import sys
 sys.stdout.reconfigure(encoding='utf-8')
 from platformconfig import get_platform
