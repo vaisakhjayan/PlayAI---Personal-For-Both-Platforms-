@@ -16,7 +16,7 @@ logging.getLogger('WDM').setLevel(logging.CRITICAL)
 
 # Configuration
 PROFILE_DIR = get_chrome_profile_path()
-PLAYHT_URL = "https://app.play.ht/studio/file/lnJ1v0mQHGfInwvDhsdC?voice=s3://voice-cloning-zero-shot/541946ca-d3c9-49c7-975b-09a4e42a991f/original/manifest.json"
+PLAYHT_URL = "https://app.play.ht/studio/file/BCc4vpCQT9fAl2Q3rMOk?voice=s3://voice-cloning-zero-shot/541946ca-d3c9-49c7-975b-09a4e42a991f/original/manifest.json"
 #Voice Updated
 def kill_chrome_instances():
     """Kill any Chrome instances that are using our profile directory."""
